@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Manage Classes</title>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container">
+    <h2>Manage Classes</h2>
+    <form th:action="@{/admin/manage-kelas/save}" th:object="${kelas}" method="post">
+        <div class="form-group">
+            <label for="namaKelas">Class Name</label>
+            <input type="text" id="namaKelas" th:field="*{namaKelas}" placeholder="e.g., PBO - A" required/>
+        </div>
+        <div class="form-group">
+            <label for="mataKuliah">Course</label>
+            <select id="mataKuliah" th:field="*{mataKuliah}" required>
+                <option value="">Select Course</option>
+                <option th:each="mk : ${listMataKuliah}" th:value="${mk.id}" th:text="${mk.namaMk}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dosenPengajar">Lecturer</label>
+            <select id="dosenPengajar" th:field="*{dosenPengajar}">
+                <option value="">Select Lecturer (Optional)</option>
+                <option th:each="dosen : ${listDosen}" th:value="${dosen.id}" th:text="${dosen.namaLengkap}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Class</button>
+    </form>
+    <hr style="margin: 30px 0;"/>
+    <h3>Existing Classes</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Class Name</th>
+            <th>Course</th>
+            <th>Lecturer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="k : ${listKelas}">
+            <td th:text="${k.namaKelas}"></td>
+            <td th:text="${k.mataKuliah.namaMk}"></td>
+            <td th:text="${k.dosenPengajar != null ? k.dosenPengajar.namaLengkap : 'Not Assigned'}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

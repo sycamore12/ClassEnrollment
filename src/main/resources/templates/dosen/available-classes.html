@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Offer to Teach Class</title>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container">
+    <h2>Classes Available to Teach</h2>
+    <div th:if="${listKelas == null or listKelas.empty}">
+        <p>No classes currently need a lecturer.</p>
+    </div>
+    <table th:unless="${listKelas == null or listKelas.empty}">
+        <thead>
+        <tr>
+            <th>Class Name</th>
+            <th>Course</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="k : ${listKelas}">
+            <td th:text="${k.namaKelas}"></td>
+            <td th:text="${k.mataKuliah.namaMk}"></td>
+            <td>
+                <form th:action="@{/dosen/teach/{id}(id=${k.id})}" method="post">
+                    <button type="submit" class="btn btn-primary">Offer to Teach</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

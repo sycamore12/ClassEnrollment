@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>My Enrolled Classes</title>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container">
+    <h2>My Enrolled Classes</h2>
+    <div th:if="${listKelas == null or listKelas.empty}">
+        <p>You are not currently enrolled in any classes.</p>
+    </div>
+    <table th:unless="${listKelas == null or listKelas.empty}">
+        <thead>
+        <tr>
+            <th>Class Name</th>
+            <th>Course</th>
+            <th>Lecturer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="kelas : ${listKelas}">
+            <td th:text="${kelas.namaKelas}"></td>
+            <td th:text="${kelas.mataKuliah.namaMk}"></td>
+            <td th:text="${kelas.dosenPengajar != null ? kelas.dosenPengajar.namaLengkap : 'Not Assigned'}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

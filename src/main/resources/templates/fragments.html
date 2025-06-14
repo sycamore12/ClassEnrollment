@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title>Course Enrollment System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar">
+    <div>
+        <a th:href="@{/}">Home</a>
+        <span sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/admin/manage-matakuliah}">Manage Courses</a>
+                <a th:href="@{/admin/manage-kelas}">Manage Classes</a>
+            </span>
+        <span sec:authorize="hasRole('MAHASISWA')">
+                <a th:href="@{/mahasiswa/my-classes}">My Enrolled Classes</a>
+                <a th:href="@{/mahasiswa/available-classes}">Enroll in Class</a>
+            </span>
+        <span sec:authorize="hasRole('DOSEN')">
+                <a th:href="@{/dosen/my-classes}">My Taught Classes</a>
+                <a th:href="@{/dosen/available-classes}">Offer to Teach Class</a>
+            </span>
+    </div>
+    <div>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-logout">Logout</button>
+        </form>
+    </div>
+</nav>
+</body>
+</html>

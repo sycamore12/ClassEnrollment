@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Manage Courses</title>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container">
+    <h2>Manage Courses</h2>
+    <form th:action="@{/admin/manage-matakuliah/save}" th:object="${mataKuliah}" method="post">
+        <div class="form-group">
+            <label for="kodeMk">Course Code</label>
+            <input type="text" id="kodeMk" th:field="*{kodeMk}" placeholder="e.g., IK241" required/>
+        </div>
+        <div class="form-group">
+            <label for="namaMk">Course Name</label>
+            <input type="text" id="namaMk" th:field="*{namaMk}" placeholder="e.g., Object-Oriented Programming" required/>
+        </div>
+        <div class="form-group">
+            <label for="sks">SKS</label>
+            <input type="number" id="sks" th:field="*{sks}" placeholder="e.g., 3" required/>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Course</button>
+    </form>
+    <hr style="margin: 30px 0;"/>
+    <h3>Existing Courses</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>SKS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="mk : ${listMataKuliah}">
+            <td th:text="${mk.kodeMk}"></td>
+            <td th:text="${mk.namaMk}"></td>
+            <td th:text="${mk.sks}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

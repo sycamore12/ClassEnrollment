@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Lecturer Dashboard</title>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container">
+    <h1>Welcome, <span th:text="${dosen != null ? dosen.namaLengkap : 'Lecturer'}">Lecturer</span>!</h1>
+    <p>This is your dashboard. Use the navigation links to view the classes you teach or to offer to teach an available class.</p>
+</div>
+</body>
+</html>
