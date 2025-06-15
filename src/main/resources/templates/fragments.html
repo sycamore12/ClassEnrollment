@@ -12,6 +12,7 @@
         <span sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{/admin/manage-matakuliah}">Manage Courses</a>
                 <a th:href="@{/admin/manage-kelas}">Manage Classes</a>
+                <a th:href="@{/admin/manage-users}">Manage Users</a>
             </span>
         <span sec:authorize="hasRole('MAHASISWA')">
                 <a th:href="@{/mahasiswa/my-classes}">My Enrolled Classes</a>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Edit User</title>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container">
+    <h2>Edit User</h2>
+
+    <form th:action="@{/admin/manage-users/save}" th:object="${userDto}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{role}" />
+
+        <div class="form-group">
+            <label>Role</label>
+            <input type="text" th:field="*{role}" readonly class="form-control-plaintext" />
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" th:field="*{username}"/>
+        </div>
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" th:field="*{fullName}" required/>
+        </div>
+        <div class="form-group">
+            <label for="uniqueId" th:text="${userDto.role == 'MAHASISWA' ? 'Student ID (NIM)' : 'Lecturer ID (NIDN)'}">ID</label>
+            <input type="text" id="uniqueId" th:field="*{uniqueId}" required/>
+        </div>
+        <div class="form-group">
+            <label for="password">New Password (leave blank to keep current password)</label>
+            <input type="password" id="password" th:field="*{password}" />
+        </div>
+        <button type="submit" class="btn btn-primary">Update User</button>
+        <a href="/admin/manage-users" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
