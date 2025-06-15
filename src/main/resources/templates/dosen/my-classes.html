@@ -7,10 +7,10 @@
 <div th:replace="~{fragments :: navbar}"></div>
 <div class="container">
     <h2>My Taught Classes</h2>
-    <div th:if="${listKelas == null or listKelas.empty}">
+    <div th:if="${listKelas == null or #lists.isEmpty()}">
         <p>You are not currently teaching any classes.</p>
     </div>
-    <table th:unless="${listKelas == null or listKelas.empty}">
+    <table th:unless="${listKelas == null or #lists.isEmpty()}">
         <thead>
         <tr>
             <th>Class Name</th>
