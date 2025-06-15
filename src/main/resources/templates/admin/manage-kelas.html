@@ -36,6 +36,7 @@
             <th>Class Name</th>
             <th>Course</th>
             <th>Lecturer</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -45,7 +46,7 @@
             <td th:text="${k.dosenPengajar != null ? k.dosenPengajar.namaLengkap : 'Not Assigned'}"></td>
             <td>
                 <a th:href="@{/admin/kelas/{id}/students(id=${k.id})}" class="btn btn-info">View Students</a>
-                <a th:href="@{/admin/manage-kelas/edit/{id}(id=${k.id})}" class="btn btn-warning">Edit</a>
+                <a th:href="@{/admin/manage-kelas/edit/{id}(id=${k.id})}" class="btn btn-info">Edit</a>
                 <form th:action="@{/admin/manage-kelas/delete/{id}(id=${k.id})}" method="post" style="display:inline;">
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this class?')">Delete</button>
                 </form>

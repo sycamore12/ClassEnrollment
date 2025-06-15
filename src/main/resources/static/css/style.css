@@ -122,6 +122,10 @@ select {
     background-color: #6c757d;
 }
 
+.btn-info {
+    color: #333333;
+}
+
 /* --- Tables --- */
 table {
     width: 100%;

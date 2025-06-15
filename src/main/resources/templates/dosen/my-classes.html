@@ -16,6 +16,7 @@
             <th>Class Name</th>
             <th>Course</th>
             <th>Number of Students</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,9 @@
             <td th:text="${kelas.namaKelas}"></td>
             <td th:text="${kelas.mataKuliah.namaMk}"></td>
             <td th:text="${#lists.size(kelas.peserta)}"></td>
+            <td>
+                <a th:href="@{/dosen/my-classes/{id}/students(id=${kelas.id})}" class="btn btn-info">View Students</a>
+            </td>
         </tr>
         </tbody>
     </table>

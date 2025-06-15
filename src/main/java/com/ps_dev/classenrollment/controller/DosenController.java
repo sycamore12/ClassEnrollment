@@ -43,6 +43,23 @@ public class DosenController {
         return "dosen/available-classes";
     }
 
+    @GetMapping("/my-classes/{kelasId}/students")
+    public String viewEnrolledStudents(@PathVariable Long kelasId, Model model, Authentication authentication) {
+        // Ensure the logged-in user is a Dosen
+        Dosen dosen = (Dosen) userRepository.findByUsername(authentication.getName()).orElse(null);
+        Kelas kelas = kelasRepository.findById(kelasId).orElse(null);
+
+        // Security Check: Make sure the requested class is actually taught by this lecturer
+        if (dosen != null && kelas != null && dosen.equals(kelas.getDosenPengajar())) {
+            model.addAttribute("kelas", kelas);
+            model.addAttribute("students", kelas.getPeserta());
+            return "dosen/view-students"; // The new HTML page we will create
+        }
+
+        // If something is wrong, redirect them back to their class list
+        return "redirect:/dosen/my-classes";
+    }
+
     @PostMapping("/teach/{kelasId}")
     public String teach(@PathVariable Long kelasId, Authentication authentication) {
         Dosen dosen = (Dosen) userRepository.findByUsername(authentication.getName()).orElse(null);
