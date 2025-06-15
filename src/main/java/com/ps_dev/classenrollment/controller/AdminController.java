@@ -46,9 +46,37 @@ public class AdminController {
         return "admin/manage-kelas";
     }
 
+    @GetMapping("/kelas/{kelasId}/students")
+    public String viewEnrolledStudents(@PathVariable Long kelasId, Model model) {
+        Kelas kelas = kelasRepository.findById(kelasId).orElse(null);
+        if (kelas != null) {
+            model.addAttribute("kelas", kelas);
+            model.addAttribute("students", kelas.getPeserta());
+        }
+        return "admin/view-enrollments";
+    }
+
+    @GetMapping("/manage-kelas/edit/{id}")
+    public String showEditKelasForm(@PathVariable Long id, Model model) {
+        Kelas kelas = kelasRepository.findById(id).orElse(null);
+        if (kelas == null) {
+            return "redirect:/admin/manage-kelas";
+        }
+        model.addAttribute("kelas", kelas);
+        model.addAttribute("listMataKuliah", mataKuliahRepository.findAll());
+        model.addAttribute("listDosen", dosenRepository.findAll());
+        return "admin/edit-kelas";
+    }
+
     @PostMapping("/manage-kelas/save")
     public String saveKelas(@ModelAttribute("kelas") Kelas kelas) {
         kelasRepository.save(kelas);
+        return "redirect:/admin/manage-kelas";
+    }
+
+    @PostMapping("/manage-kelas/delete/{id}")
+    public String deleteKelas(@PathVariable Long id) {
+        kelasRepository.deleteById(id);
         return "redirect:/admin/manage-kelas";
     }
 }

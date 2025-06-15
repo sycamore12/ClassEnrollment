@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+  <title>Edit Class</title>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container">
+  <h2>Edit Class</h2>
+  <form th:action="@{/admin/manage-kelas/save}" th:object="${kelas}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <div class="form-group">
+      <label for="namaKelas">Class Name</label>
+      <input type="text" id="namaKelas" th:field="*{namaKelas}" required/>
+    </div>
+    <div class="form-group">
+      <label for="mataKuliah">Course</label>
+      <select id="mataKuliah" th:field="*{mataKuliah}" required>
+        <option value="">Select Course</option>
+        <option th:each="mk : ${listMataKuliah}" th:value="${mk.id}" th:text="${mk.namaMk}"></option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="dosenPengajar">Lecturer</label>
+      <select id="dosenPengajar" th:field="*{dosenPengajar}">
+        <option value="">Select Lecturer (Optional)</option>
+        <option th:each="dosen : ${listDosen}" th:value="${dosen.id}" th:text="${dosen.namaLengkap}"></option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Class</button>
+    <a href="/admin/manage-kelas" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+</body>
+</html>

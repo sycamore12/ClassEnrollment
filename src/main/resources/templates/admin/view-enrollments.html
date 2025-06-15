@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+    <title>Enrolled Students</title>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="container">
+    <div th:if="${kelas}">
+        <h2 th:text="'Students Enrolled in ' + ${kelas.namaKelas}"></h2>
+        <p th:text="${kelas.mataKuliah.namaMk}"></p>
+        <hr/>
+        <div th:if="${students.isEmpty()}">
+            <p>No students are currently enrolled in this class.</p>
+        </div>
+        <table th:if="${!students.isEmpty()}">
+            <thead>
+            <tr>
+                <th>Student ID (NIM)</th>
+                <th>Full Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.nim}"></td>
+                <td th:text="${student.namaLengkap}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${kelas == null}">
+        <h2>Class not found</h2>
+    </div>
+    <a href="/admin/manage-kelas" class="btn btn-secondary" style="margin-top: 20px;">Back to Manage Classes</a>
+</div>
+</body>
+</html>
