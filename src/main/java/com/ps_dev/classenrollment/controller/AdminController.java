@@ -164,6 +164,31 @@ public class AdminController {
     }
 
     // Add this method inside your AdminController class
+    @PostMapping("/manage-matakuliah/delete/{id}")
+    public String deleteMataKuliah(@PathVariable Long id) {
+        // Note: This will fail if a Kelas is currently using this MataKuliah,
+        // due to database constraints. A more robust solution would be to
+        // check for associated classes first and handle it gracefully.
+        mataKuliahRepository.deleteById(id);
+        return "redirect:/admin/manage-matakuliah";
+    }
+
+    @PostMapping("/kelas/{kelasId}/unenroll/{mahasiswaId}")
+    public String unenrollStudent(@PathVariable Long kelasId, @PathVariable Long mahasiswaId) {
+        Kelas kelas = kelasRepository.findById(kelasId).orElse(null);
+        User user = userRepository.findById(mahasiswaId).orElse(null);
+
+        // FIX: Use pattern matching for instanceof
+        if (kelas != null && user instanceof Mahasiswa mahasiswa) {
+            // No need for a separate cast anymore. The 'mahasiswa' variable is already available here.
+            kelas.getPeserta().remove(mahasiswa);
+            kelasRepository.save(kelas);
+        }
+
+        return "redirect:/admin/kelas/" + kelasId + "/students";
+    }
+
+    // Add this method inside your AdminController class
 
     @GetMapping("/manage-users/edit/{id}")
     public String showEditUserForm(@PathVariable Long id, Model model) {

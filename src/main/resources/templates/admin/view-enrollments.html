@@ -18,12 +18,18 @@
             <tr>
                 <th>Student ID (NIM)</th>
                 <th>Full Name</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="student : ${students}">
                 <td th:text="${student.nim}"></td>
                 <td th:text="${student.namaLengkap}"></td>
+                <td>
+                    <form th:action="@{/admin/kelas/{kelasId}/unenroll/{mahasiswaId}(kelasId=${kelas.id}, mahasiswaId=${student.id})}" method="post">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to unenroll this student?');">Unenroll</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
